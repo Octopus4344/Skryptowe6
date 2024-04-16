@@ -24,37 +24,40 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
     def validate(self):
         pass
 
+    def get_text(self):
+        return self.__text
+
 
 class InvalidPasswordLogEntry(SSHLogEntry):
     def __init__(self, time: datetime, text: str, PID: int, hostname: str = None):
-        super().__init__(self, time, text, PID, hostname)
+        super().__init__(time, text, PID, hostname)
         self.type = 'Invalid Password Log Entry'
 
     def validate(self):
-        return self.type == Helpers.get_message_type(self.__text)
+        return self.type == Helpers.get_message_type(self.get_text())
 
 
 class PasswordAcceptedLogEntry(SSHLogEntry):
     def __init__(self, time: datetime, text: str, PID: int, hostname: str = None):
-        super().__init__(self, time, text, PID, hostname)
+        super().__init__(time, text, PID, hostname)
         self.type = 'Password Accepted Log Entry'
 
     def validate(self):
-        return self.type == Helpers.get_message_type(self.__text)
+        return self.type == Helpers.get_message_type(self.get_text())
 
 
 class ErrorLogEntry(SSHLogEntry):
     def __init__(self, time: datetime, text: str, PID: int, hostname: str = None):
-        super().__init__(self, time, text, PID, hostname)
+        super().__init__(time, text, PID, hostname)
         self.type = 'Error Log Entry'
 
     def validate(self):
-        return self.type == Helpers.get_message_type(self.__text)
+        return self.type == Helpers.get_message_type(self.get_text())
 
 
 class OtherLogEntry(SSHLogEntry):
     def __init__(self, time: datetime, text: str, PID: int, hostname: str = None):
-        super().__init__(self, time, text, PID, hostname)
+        super().__init__(time, text, PID, hostname)
         self.type = 'Other Log Entry'
 
     def validate(self):
