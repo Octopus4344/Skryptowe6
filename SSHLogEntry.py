@@ -1,8 +1,7 @@
-from datetime import datetime
-import re
-from ipaddress import IPv4Address
-import Helpers
 import abc
+from datetime import datetime
+
+import Helpers
 
 
 class SSHLogEntry(metaclass=abc.ABCMeta):

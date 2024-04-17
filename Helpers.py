@@ -1,7 +1,6 @@
-from datetime import datetime
 import re
+from datetime import datetime
 from ipaddress import IPv4Address
-import Helpers
 
 
 def get_IPv4_address(text):
@@ -76,4 +75,3 @@ def get_description(line):
         return match.group(1)
     else:
         return None
-
