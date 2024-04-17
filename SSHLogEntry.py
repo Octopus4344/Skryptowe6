@@ -19,6 +19,10 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
     def IPv4_address(self):
         return Helpers.get_IPv4_address(self.__text)
 
+    @property
+    def has_ip(self):
+        return self.IPv4_address is not None
+
     @abc.abstractmethod
     def validate(self):
         pass
