@@ -15,6 +15,25 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
     def __str__(self):
         return f"Time: {self.time}, Hostname: {self.hostname}, Text: {self.__text}, PID: {self.PID}"
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(time={self.time}, hostname={self.hostname}, text={self.__text}, PID={self.PID}, ipv4={self.IPv4_address})"
+
+    def __eq__(self, other):
+        if not isinstance(other, SSHLogEntry):
+            return False
+        return (self.time, self.__text, self.PID, self.hostname, self.IPv4_address) == (
+            other.time, other.__text, other.PID, other.hostname, other.IPv4_address)
+
+    def __lt__(self, other):
+        if not isinstance(other, SSHLogEntry):
+            raise ValueError("Comparison with non-SSHLogEntry object")
+        return self.time < other.time
+
+    def __gt__(self, other):
+        if not isinstance(other, SSHLogEntry):
+            raise ValueError("Comparison with non-SSHLogEntry object")
+        return self.time > other.time
+
     @property
     def IPv4_address(self):
         return Helpers.get_IPv4_address(self.__text)
