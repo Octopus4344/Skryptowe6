@@ -84,20 +84,3 @@ class OtherLogEntry(SSHLogEntry):
 
     def validate(self):
         return True
-
-
-def classify_entry(entry):
-    log_type = Helpers.get_message_type(entry)
-    time = Helpers.get_time(entry)
-    hostname = Helpers.get_host_name(entry)
-    PID = Helpers.get_pid(entry)
-    match log_type:
-        case 'Invalid Password Log Entry':
-            return InvalidPasswordLogEntry(time, entry, PID, hostname)
-        case 'Password Accepted Log Entry':
-            return PasswordAcceptedLogEntry(time, entry, PID, hostname)
-        case 'Error Log Entry':
-            return ErrorLogEntry(time, entry, PID, hostname)
-        case 'Other Log Entry':
-            return OtherLogEntry(time, entry, PID, hostname)
-    return None

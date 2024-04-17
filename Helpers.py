@@ -2,6 +2,8 @@ import re
 from datetime import datetime
 from ipaddress import IPv4Address
 
+from SSHLogEntry import InvalidPasswordLogEntry, PasswordAcceptedLogEntry, ErrorLogEntry, OtherLogEntry
+
 
 def get_IPv4_address(text):
     pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
@@ -75,3 +77,20 @@ def get_description(line):
         return match.group(1)
     else:
         return None
+
+
+def classify_entry(entry):
+    log_type = get_message_type(entry)
+    time = get_time(entry)
+    hostname = get_host_name(entry)
+    PID = get_pid(entry)
+    match log_type:
+        case 'Invalid Password Log Entry':
+            return InvalidPasswordLogEntry(time, entry, PID, hostname)
+        case 'Password Accepted Log Entry':
+            return PasswordAcceptedLogEntry(time, entry, PID, hostname)
+        case 'Error Log Entry':
+            return ErrorLogEntry(time, entry, PID, hostname)
+        case 'Other Log Entry':
+            return OtherLogEntry(time, entry, PID, hostname)
+    return None

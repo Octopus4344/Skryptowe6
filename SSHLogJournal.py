@@ -1,7 +1,7 @@
 from datetime import datetime
 from ipaddress import IPv4Address
 
-from SSHLogEntry import classify_entry
+from Helpers import classify_entry
 
 
 class SSHLogJournal:
