@@ -51,7 +51,7 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
 
 
 class InvalidPasswordLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, hostname: str = None):
+    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: str = None):
         super().__init__(time, text, PID, hostname)
         self.type = 'Invalid Password Log Entry'
 
@@ -60,7 +60,7 @@ class InvalidPasswordLogEntry(SSHLogEntry):
 
 
 class PasswordAcceptedLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, hostname: str = None):
+    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: str = None):
         super().__init__(time, text, PID, hostname)
         self.type = 'Password Accepted Log Entry'
 

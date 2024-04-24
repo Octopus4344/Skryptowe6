@@ -84,11 +84,12 @@ def classify_entry(entry):
     time = get_time(entry)
     hostname = get_host_name(entry)
     PID = get_pid(entry)
+    username = get_user_from_log(entry)
     match log_type:
         case 'Invalid Password Log Entry':
-            return InvalidPasswordLogEntry(time, entry, PID, hostname)
+            return InvalidPasswordLogEntry(time, entry, PID, username, hostname)
         case 'Password Accepted Log Entry':
-            return PasswordAcceptedLogEntry(time, entry, PID, hostname)
+            return PasswordAcceptedLogEntry(time, entry, PID, username, hostname)
         case 'Error Log Entry':
             return ErrorLogEntry(time, entry, PID, hostname)
         case 'Other Log Entry':
