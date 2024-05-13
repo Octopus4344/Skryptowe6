@@ -17,7 +17,8 @@ sample_logs = [
         (sample_logs[1], "Dec 10 06:55:46"),
         (sample_logs[2], "Dec 10 06:55:46"),
         (sample_logs[3], "Dec 10 06:55:46")
-    ])
+    ]
+)
 def test_extract_time(log_content, expected_time):
     entry = classify_entry(log_content)
     assert entry.time == datetime.strptime(expected_time, "%b %d %H:%M:%S")
