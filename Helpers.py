@@ -9,7 +9,10 @@ def get_IPv4_address(text):
     pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
     match = re.search(pattern, text)
     if match:
-        return IPv4Address(match.group(0))
+        try:
+            return IPv4Address(match.group(0))
+        except ValueError:
+            return None
     else:
         return None
 

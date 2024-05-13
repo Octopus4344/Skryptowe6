@@ -1,6 +1,6 @@
 import abc
 from datetime import datetime
-from typing import Optional, Tuple
+from typing import Optional
 
 import Helpers
 
@@ -85,5 +85,3 @@ class OtherLogEntry(SSHLogEntry):
 
     def validate(self) -> bool:
         return True
-
-
