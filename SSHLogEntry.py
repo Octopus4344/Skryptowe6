@@ -7,16 +7,16 @@ import Helpers
 
 class SSHLogEntry(metaclass=abc.ABCMeta):
 
-    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None):
+    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None) -> None:
         self.time = time
         self.hostname = hostname
         self.__text = text
         self.PID = PID
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Time: {self.time}, Hostname: {self.hostname}, Text: {self.__text}, PID: {self.PID}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.__class__.__name__}(time={self.time}, hostname={self.hostname}, text={self.__text}, PID={self.PID}, ipv4={self.IPv4_address})"
 
     def __eq__(self, other: object) -> bool:
@@ -52,7 +52,7 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
 
 
 class InvalidPasswordLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: Optional[str] = None):
+    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Invalid Password Log Entry'
 
@@ -61,7 +61,7 @@ class InvalidPasswordLogEntry(SSHLogEntry):
 
 
 class PasswordAcceptedLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: Optional[str] = None):
+    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Password Accepted Log Entry'
 
@@ -70,7 +70,7 @@ class PasswordAcceptedLogEntry(SSHLogEntry):
 
 
 class ErrorLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None):
+    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Error Log Entry'
 
@@ -79,7 +79,7 @@ class ErrorLogEntry(SSHLogEntry):
 
 
 class OtherLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None):
+    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Other Log Entry'
 

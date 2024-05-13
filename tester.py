@@ -52,6 +52,7 @@ objects_list = [SSHUser("user_1", datetime.datetime(year=2024, month=4, day=16, 
                 SSHUser("user-2", datetime.datetime(year=2024, month=4, day=17, hour=12, minute=30, second=45)),
                 SSHUser("user_3", datetime.datetime(year=2024, month=4, day=18, hour=12, minute=30, second=45)),
                 SSHUser("User_4", datetime.datetime(year=2024, month=4, day=19, hour=12, minute=30, second=45)),
+                classify_entry("blah blah blah"),
                 *journal.entries]
 
 random.shuffle(objects_list)

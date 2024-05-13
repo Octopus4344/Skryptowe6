@@ -26,6 +26,8 @@ class SSHLogJournal:
         elif isinstance(key, str):
             return self.get_logs_by_ip(key)
         elif isinstance(key, tuple) and len(key) == 2 and all(isinstance(item, datetime) for item in key):
+            start_date: datetime
+            end_date: datetime
             start_date, end_date = key
             return self.get_logs_by_daterange(start_date, end_date)
         else:
