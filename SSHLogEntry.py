@@ -1,5 +1,6 @@
 import abc
 from datetime import datetime
+from ipaddress import IPv4Address
 from typing import Optional
 
 import Helpers
@@ -36,7 +37,7 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
         return self.time > other.time
 
     @property
-    def IPv4_address(self) -> Optional[str]:
+    def IPv4_address(self) -> Optional[IPv4Address]:
         return Helpers.get_IPv4_address(self.__text)
 
     @property
