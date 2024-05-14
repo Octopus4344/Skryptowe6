@@ -8,7 +8,7 @@ import Helpers
 
 class SSHLogEntry(metaclass=abc.ABCMeta):
 
-    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None) -> None:
+    def __init__(self, time: Optional[datetime], text: str, PID: Optional[int], hostname: Optional[str] = None) -> None:
         self.time = time
         self.hostname = hostname
         self.__text = text
@@ -29,15 +29,21 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
     def __lt__(self, other: object) -> bool:
         if not isinstance(other, SSHLogEntry):
             raise ValueError("Comparison with non-SSHLogEntry object")
+        if not self.time or not other.time:
+            return False
         return self.time < other.time
 
     def __gt__(self, other: object) -> bool:
         if not isinstance(other, SSHLogEntry):
             raise ValueError("Comparison with non-SSHLogEntry object")
+        if not self.time or not other.time:
+            return False
         return self.time > other.time
 
     @property
     def IPv4_address(self) -> Optional[IPv4Address]:
+        if not self.__text:
+            return None
         return Helpers.get_IPv4_address(self.__text)
 
     @property
@@ -49,11 +55,14 @@ class SSHLogEntry(metaclass=abc.ABCMeta):
         pass
 
     def get_text(self) -> str:
+        if not self.__text:
+            return ""
         return self.__text
 
 
 class InvalidPasswordLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: Optional[str] = None) -> None:
+    def __init__(self, time: Optional[datetime], text: str, PID: Optional[int], username: Optional[str],
+                 hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Invalid Password Log Entry'
 
@@ -62,7 +71,8 @@ class InvalidPasswordLogEntry(SSHLogEntry):
 
 
 class PasswordAcceptedLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, username: str, hostname: Optional[str] = None) -> None:
+    def __init__(self, time: Optional[datetime], text: str, PID: Optional[int], username: Optional[str],
+                 hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Password Accepted Log Entry'
 
@@ -71,7 +81,7 @@ class PasswordAcceptedLogEntry(SSHLogEntry):
 
 
 class ErrorLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None) -> None:
+    def __init__(self, time: Optional[datetime], text: str, PID: Optional[int], hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Error Log Entry'
 
@@ -80,7 +90,7 @@ class ErrorLogEntry(SSHLogEntry):
 
 
 class OtherLogEntry(SSHLogEntry):
-    def __init__(self, time: datetime, text: str, PID: int, hostname: Optional[str] = None) -> None:
+    def __init__(self, time: Optional[datetime], text: str, PID: Optional[int], hostname: Optional[str] = None) -> None:
         super().__init__(time, text, PID, hostname)
         self.type: str = 'Other Log Entry'
 
